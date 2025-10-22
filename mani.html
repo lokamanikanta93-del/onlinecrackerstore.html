@@ -1,0 +1,2685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkleCrackers - Colorful Online Fireworks Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff3e7f;
+            --secondary: #ff9900;
+            --accent: #00c2ff;
+            --dark: #0a0a2a;
+            --light: #ffffff;
+            --success: #00c853;
+            --warning: #ffab00;
+            --danger: #ff1744;
+            --gray: #f5f5f5;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--dark), #1a1a4a);
+            color: var(--light);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .location-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .location-selector:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            padding-left: 45px;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .user-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .user-action:hover {
+            color: var(--secondary);
+        }
+        
+        .user-action i {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+        
+        .cart-icon, .favorites-icon {
+            position: relative;
+        }
+        
+        .cart-count, .favorites-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Banner Carousel */
+        .banner-carousel {
+            margin: 1.5rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            height: 300px;
+        }
+        
+        .banner {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            color: white;
+        }
+        
+        .banner-content {
+            max-width: 50%;
+        }
+        
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .banner p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .banner-btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .banner-btn:hover {
+            background: white;
+            color: var(--dark);
+        }
+        
+        .banner-image {
+            max-width: 40%;
+        }
+        
+        .banner-image img {
+            max-width: 100%;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+        }
+        
+        /* Categories */
+        .categories {
+            margin: 2.5rem 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card.active {
+            border: 2px solid var(--primary);
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .category-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-count {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: bold;
+            background: rgba(255, 62, 127, 0.1);
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        /* Products */
+        .products-section {
+            margin: 2.5rem 0;
+        }
+        
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 180px;
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .discount-badge {
+            background: var(--success);
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #777;
+        }
+        
+        .favorite-btn:hover, .favorite-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .product-info {
+            padding: 1.2rem;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-category {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-stars {
+            color: var(--warning);
+        }
+        
+        .rating-count {
+            color: #777;
+            font-size: 0.8rem;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .product-price s {
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        /* Special Offers Section */
+        .offers-section {
+            margin: 2.5rem 0;
+            display: none;
+        }
+        
+        .offers-section.active {
+            display: block;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .offer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .offer-image {
+            height: 180px;
+            background: linear-gradient(135deg, #ff3e7f, #ff9900);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .offer-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .offer-info {
+            padding: 1.2rem;
+        }
+        
+        .offer-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .offer-description {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .offer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .offer-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .offer-price s {
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        
+        .offer-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .offer-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Account Modal */
+        .account-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1100;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .account-modal.active {
+            display: block;
+        }
+        
+        .account-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .account-header h2 {
+            color: white;
+        }
+        
+        .close-account {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .account-content {
+            padding: 1.5rem;
+        }
+        
+        .account-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+        
+        .account-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .account-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .account-form {
+            display: none;
+        }
+        
+        .account-form.active {
+            display: block;
+        }
+        
+        /* Favorites Sidebar */
+        .favorites-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .favorites-sidebar.active {
+            right: 0;
+        }
+        
+        .favorites-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .favorites-header h2 {
+            color: var(--dark);
+        }
+        
+        .close-favorites {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .favorites-items {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .favorite-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .favorite-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .favorite-item-image img {
+            max-width: 70%;
+            max-height: 70%;
+        }
+        
+        .favorite-item-details {
+            flex: 1;
+        }
+        
+        .favorite-item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .favorite-item-price {
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        .favorite-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        
+        .remove-favorite {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        .favorites-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .safety-notice {
+            background: rgba(255, 153, 0, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h2 {
+            color: var(--dark);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .cart-items {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffcc00, #ff6600);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-item-image img {
+            max-width: 70%;
+            max-height: 70%;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .remove-item {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Checkout Modal */
+        .checkout-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1100;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .checkout-modal.active {
+            display: block;
+        }
+        
+        .checkout-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .checkout-header h2 {
+            color: white;
+        }
+        
+        .close-checkout {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .checkout-content {
+            padding: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .checkout-step {
+            margin-bottom: 2rem;
+        }
+        
+        .checkout-step h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkout-step h3 i {
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-method {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(255, 62, 127, 0.05);
+        }
+        
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .order-summary {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .place-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .place-order-btn:hover {
+            background: #00b347;
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1200;
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-modal.active {
+            display: block;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        .success-modal h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .success-modal p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+        
+        .continue-shopping {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .continue-shopping:hover {
+            background: var(--secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .banner {
+                padding: 0 2rem;
+            }
+            
+            .banner h2 {
+                font-size: 2rem;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                margin: 1rem 0 0;
+                max-width: 100%;
+            }
+            
+            .banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+                height: auto;
+            }
+            
+            .banner-content {
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .banner-image {
+                max-width: 60%;
+            }
+            
+            .cart-sidebar, .favorites-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .user-actions {
+                gap: 1rem;
+            }
+            
+            .user-action span {
+                display: none;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-fire"></i>
+                <h1>SparkleCrackers</h1>
+            </div>
+            
+            <div class="location-selector">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Deliver to: <strong>Chennai 600001</strong></span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for crackers, brands, categories...">
+            </div>
+            
+            <div class="user-actions">
+                <div class="user-action" id="account-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </div>
+                <div class="user-action favorites-icon" id="favorites-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Favorites</span>
+                    <div class="favorites-count">0</div>
+                </div>
+                <div class="user-action cart-icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Cart</span>
+                    <div class="cart-count">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Banner Carousel -->
+        <div class="banner-carousel">
+            <div class="banner">
+                <div class="banner-content">
+                    <h2>Diwali Special Offers!</h2>
+                    <p>Get up to 50% off on premium cracker collections. Shop now for the brightest celebrations!</p>
+                    <button class="banner-btn" id="explore-offers-btn">Explore Offers</button>
+                </div>
+                <div class="banner-image">
+                    <img src="https://thumbs.dreamstime.com/b/diwali-festival-big-sale-offer-poster-decorative-lights-creative-vector-design-promotional-colorful-text-sparkling-festive-403901922.jpg" alt="Fireworks">
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Offers Section -->
+        <section class="offers-section" id="offers-section">
+            <h2 class="section-title">Special Offers & Discounts</h2>
+            <div class="offers-grid">
+                <!-- Offer 1 -->
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <div class="offer-badge">50% OFF</div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW0o8Umxn99Y4Ui3w0DhTWPOuZwB3srF9MNQ&s" alt="Diwali Special Bundle">
+                    </div>
+                    <div class="offer-info">
+                        <h3 class="offer-name">Diwali Mega Bundle</h3>
+                        <p class="offer-description">Complete fireworks package with 50+ items for the perfect Diwali celebration</p>
+                        <div class="offer-footer">
+                            <div class="offer-price">₹1999 <s>₹3999</s></div>
+                            <button class="offer-btn" data-id="101" data-name="Diwali Mega Bundle" data-price="1999" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840468_1280.png">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offer 2 -->
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <div class="offer-badge">Buy 2 Get 1 Free</div>
+                        <img src="https://www.fireworks2home.com/wp-content/uploads/2023/10/IMG_7219.jpg" alt="Sparklers Combo">
+                    </div>
+                    <div class="offer-info">
+                        <h3 class="offer-name">Sparklers Combo Pack</h3>
+                        <p class="offer-description">Assorted sparklers with different colors and effects. Buy 2 packs get 1 free!</p>
+                        <div class="offer-footer">
+                            <div class="offer-price">₹599 <s>₹899</s></div>
+                            <button class="offer-btn" data-id="102" data-name="Sparklers Combo Pack" data-price="599" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840469_1280.png">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offer 3 -->
+                <div class="offer-card">
+                    <div class="offer-image">
+                        <div class="offer-badge">30% OFF</div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiyp8_wbYrbUSdZbtBRT5hKyOWJN1iePwWzA&s" alt="Rocket Festival Pack">
+                    </div>
+                    <div class="offer-info">
+                        <h3 class="offer-name">Rocket Festival Pack</h3>
+                        <p class="offer-description">20 high-flying rockets with colorful effects and loud bursts</p>
+                        <div class="offer-footer">
+                            <div class="offer-price">₹699 <s>₹999</s></div>
+                            <button class="offer-btn" data-id="103" data-name="Rocket Festival Pack" data-price="699" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840470_1280.png">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card active" data-category="all">
+                    <div class="category-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="category-name">All Products</div>
+                    <div class="product-count">142 products</div>
+                </div>
+                <div class="category-card" data-category="sparklers">
+                    <div class="category-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="category-name">Sparklers</div>
+                    <div class="product-count">42 products</div>
+                </div>
+                <div class="category-card" data-category="rockets">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="category-name">Rockets</div>
+                    <div class="product-count">28 products</div>
+                </div>
+                <div class="category-card" data-category="fountains">
+                    <div class="category-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="category-name">Fountains</div>
+                    <div class="product-count">35 products</div>
+                </div>
+                <div class="category-card" data-category="bombs">
+                    <div class="category-icon">
+                        <i class="fas fa-bomb"></i>
+                    </div>
+                    <div class="category-name">Bombs</div>
+                    <div class="product-count">19 products</div>
+                </div>
+                <div class="category-card" data-category="flower-pots">
+                    <div class="category-icon">
+                        <i class="fas fa-feather"></i>
+                    </div>
+                    <div class="category-name">Flower Pots</div>
+                    <div class="product-count">26 products</div>
+                </div>
+                <div class="category-card" data-category="chakkars">
+                    <div class="category-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="category-name">Chakkars</div>
+                    <div class="product-count">15 products</div>
+                </div>
+                <div class="category-card" data-category="kids">
+                    <div class="category-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="category-name">Kids Items</div>
+                    <div class="product-count">31 products</div>
+                </div>
+                <div class="category-card" data-category="gift-boxes">
+                    <div class="category-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="category-name">Gift Boxes</div>
+                    <div class="product-count">12 products</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Products -->
+        <section class="products-section">
+            <div class="products-header">
+                <h2 class="section-title">Popular Crackers</h2>
+                <button class="filter-btn">
+                    <i class="fas fa-filter"></i>
+                    Filters
+                </button>
+            </div>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="sparklers">
+                    <div class="product-image">
+                        <div class="product-badge">Bestseller</div>
+                        <button class="favorite-btn" data-id="1"><i class="far fa-heart"></i></button>
+                        <img src="https://sparklingcrackers.in/uploads/stocks/STK_IMG_S-ID-7119956807.webp" alt="Electric Sparklers">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Electric Sparklers</h3>
+                        <div class="product-category">Sparklers</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="rating-count">(248)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹199 <s>₹299</s></div>
+                            <button class="add-to-cart" data-id="1" data-name="Electric Sparklers" data-price="199" data-image="https://cdn.pixabay.com/photo/2013/07/12/18/20/sparkler-153746_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-category="rockets">
+                    <div class="product-image">
+                        <div class="product-badge">New</div>
+                        <button class="favorite-btn" data-id="2"><i class="far fa-heart"></i></button>
+                        <img src="https://5.imimg.com/data5/SELLER/Default/2024/9/451471580/FJ/NY/VH/36275315/multi-colored-rocket-firework-500x500.jpeg" alt="Rocket Bundle">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sky Rocket Bundle</h3>
+                        <div class="product-category">Rockets</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">(156)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹499 <s>₹699</s></div>
+                            <button class="add-to-cart" data-id="2" data-name="Sky Rocket Bundle" data-price="499" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840463_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-category="fountains">
+                    <div class="product-image">
+                        <button class="favorite-btn" data-id="3"><i class="far fa-heart"></i></button>
+                        <img src="https://www.bbassets.com/media/uploads/p/l/40117021_1-standard-crackers-fancy-fireworks-golden-drops.jpg" alt="Fountain Combo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Golden Fountain Combo</h3>
+                        <div class="product-category">Fountains</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-count">(312)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹349</div>
+                            <button class="add-to-cart" data-id="3" data-name="Golden Fountain Combo" data-price="349" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840462_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-category="flower-pots">
+                    <div class="product-image">
+                        <div class="product-badge discount-badge">Limited Stock</div>
+                        <button class="favorite-btn" data-id="4"><i class="far fa-heart"></i></button>
+                        <img src="https://www.fireworks2home.com/wp-content/uploads/2023/10/2-in-1-flower-pot-by-chunmun--600x400.jpg" alt="Flower Pot Set">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Flower Pot Deluxe Set</h3>
+                        <div class="product-category">Flower Pots</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="rating-count">(189)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹599 <s>₹799</s></div>
+                            <button class="add-to-cart" data-id="4" data-name="Flower Pot Deluxe Set" data-price="599" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840461_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-category="bombs">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <button class="favorite-btn" data-id="5"><i class="far fa-heart"></i></button>
+                        <img src="data:image/jpeg;base64,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" alt="Sound Bomb">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Thunder Sound Bomb</h3>
+                        <div class="product-category">Bombs</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">(203)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹249 <s>₹349</s></div>
+                            <button class="add-to-cart" data-id="5" data-name="Thunder Sound Bomb" data-price="249" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840464_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-category="chakkars">
+                    <div class="product-image">
+                        <button class="favorite-btn" data-id="6"><i class="far fa-heart"></i></button>
+                        <img src="https://kausikcrackers.com/wp-content/uploads/2025/08/gc-ashoka-1.jpg" alt="Chakkar">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Colorful Ground Chakkar</h3>
+                        <div class="product-category">Chakkars</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">(142)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹179</div>
+                            <button class="add-to-cart" data-id="6" data-name="Colorful Ground Chakkar" data-price="179" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840465_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card" data-category="kids">
+                    <div class="product-image">
+                        <div class="product-badge">Safe for Kids</div>
+                        <button class="favorite-btn" data-id="7"><i class="far fa-heart"></i></button>
+                        <img src="data:image/jpeg;base64,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" alt="Kids Sparklers">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kids Safe Sparklers</h3>
+                        <div class="product-category">Kids Items</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-count">(267)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹129 <s>₹199</s></div>
+                            <button class="add-to-cart" data-id="7" data-name="Kids Safe Sparklers" data-price="129" data-image="https://cdn.pixabay.com/photo/2013/07/12/18/20/sparkler-153745_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card" data-category="gift-boxes">
+                    <div class="product-image">
+                        <div class="product-badge">Festival Special</div>
+                        <button class="favorite-btn" data-id="8"><i class="far fa-heart"></i></button>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnRIwoQQIgUJtfHtb5u9hHdlvJbOYAfompNw&s" alt="Gift Box">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Diwali Celebration Box</h3>
+                        <div class="product-category">Gift Boxes</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="rating-count">(178)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹1299 <s>₹1799</s></div>
+                            <button class="add-to-cart" data-id="8" data-name="Diwali Celebration Box" data-price="1299" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840466_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-card" data-category="sparklers">
+                    <div class="product-image">
+                        <button class="favorite-btn" data-id="9"><i class="far fa-heart"></i></button>
+                        <img src="https://www.sadhanacrackers.in/wp-content/uploads/2025/06/1000470196-1152x1536.jpg" alt="Long Sparklers">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Long Lasting Sparklers</h3>
+                        <div class="product-category">Sparklers</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">(198)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹299</div>
+                            <button class="add-to-cart" data-id="9" data-name="Long Lasting Sparklers" data-price="299" data-image="https://cdn.pixabay.com/photo/2013/07/12/18/20/sparkler-153747_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-card" data-category="rockets">
+                    <div class="product-image">
+                        <div class="product-badge">New</div>
+                        <button class="favorite-btn" data-id="10"><i class="far fa-heart"></i></button>
+                        <img src="https://5.imimg.com/data5/SELLER/Default/2024/11/463612246/BB/GW/PN/64962971/fancy-rocket-crackers.jpeg" alt="Multi-color Rockets">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Multi-color Rocket Pack</h3>
+                        <div class="product-category">Rockets</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="rating-count">(124)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹399 <s>₹499</s></div>
+                            <button class="add-to-cart" data-id="10" data-name="Multi-color Rocket Pack" data-price="399" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840467_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-card" data-category="fountains">
+                    <div class="product-image">
+                        <button class="favorite-btn" data-id="11"><i class="far fa-heart"></i></button>
+                        <img src="data:image/jpeg;base64,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" alt="Silver Fountain">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Silver Sparkle Fountain</h3>
+                        <div class="product-category">Fountains</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="rating-count">(215)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹449 <s>₹599</s></div>
+                            <button class="add-to-cart" data-id="11" data-name="Silver Sparkle Fountain" data-price="449" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840471_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 12 -->
+                <div class="product-card" data-category="bombs">
+                    <div class="product-image">
+                        <div class="product-badge">Bestseller</div>
+                        <button class="favorite-btn" data-id="12"><i class="far fa-heart"></i></button>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjcEs13F01WnRA_mJzHBK8Y0tI53dgGNEnRQ&s" alt="Color Bomb">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Rainbow Color Bomb</h3>
+                        <div class="product-category">Bombs</div>
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="rating-count">(189)</div>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">₹329</div>
+                            <button class="add-to-cart" data-id="12" data-name="Rainbow Color Bomb" data-price="329" data-image="https://cdn.pixabay.com/photo/2016/11/19/17/25/fireworks-1840472_1280.png">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Notice -->
+        <div class="safety-notice">
+            <h3><i class="fas fa-exclamation-triangle"></i> Safety First!</h3>
+            <p>Always follow safety guidelines when using fireworks. Keep a safe distance, use in open areas, and have water nearby. Never allow children to handle fireworks unsupervised.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SparkleCrackers</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Help & Support</a></li>
+                    <li><a href="#">Partner With Us</a></li>
+                    <li><a href="#">Ride With Us</a></li>
+                    <li><a href="#">Customer Care</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Safety Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Download App</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-google-play"></i> Google Play</a></li>
+                    <li><a href="#"><i class="fab fa-apple"></i> App Store</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 SparkleCrackers. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Account Modal -->
+    <div class="account-modal" id="account-modal">
+        <div class="account-header">
+            <h2>My Account</h2>
+            <button class="close-account" id="close-account">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="account-content">
+            <div class="account-tabs">
+                <button class="account-tab active" data-tab="login">Login</button>
+                <button class="account-tab" data-tab="register">Register</button>
+                <button class="account-tab" data-tab="profile">Profile</button>
+            </div>
+            
+            <div class="account-form active" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button class="offer-btn" style="width: 100%;">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" style="color: var(--primary);" id="show-register">Register here</a></p>
+            </div>
+            
+            <div class="account-form" id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">Phone Number</label>
+                    <input type="tel" id="register-phone" placeholder="Enter your phone number">
+                </div>
+                <button class="offer-btn" style="width: 100%;">Register</button>
+                <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="#" style="color: var(--primary);" id="show-login">Login here</a></p>
+            </div>
+            
+            <div class="account-form" id="profile-form">
+                <div class="form-group">
+                    <label for="profile-name">Full Name</label>
+                    <input type="text" id="profile-name" placeholder="Your full name" value="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="profile-email">Email Address</label>
+                    <input type="email" id="profile-email" placeholder="Your email" value="john.doe@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="profile-phone">Phone Number</label>
+                    <input type="tel" id="profile-phone" placeholder="Your phone number" value="+91 9876543210">
+                </div>
+                <div class="form-group">
+                    <label for="profile-address">Address</label>
+                    <input type="text" id="profile-address" placeholder="Your address" value="123 Main Street, Chennai">
+                </div>
+                <button class="offer-btn" style="width: 100%;">Update Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Sidebar -->
+    <div class="favorites-sidebar" id="favorites-sidebar">
+        <div class="favorites-header">
+            <h2>My Favorites</h2>
+            <button class="close-favorites" id="close-favorites">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="favorites-items" id="favorites-items">
+            <!-- Favorite items will be dynamically added here -->
+            <div class="empty-favorites-message" id="empty-favorites-message">
+                <p>Your favorites list is empty</p>
+                <p>Add some products to your favorites!</p>
+            </div>
+        </div>
+        <div class="favorites-footer">
+            <p>Items you love, saved for later</p>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+            <div class="empty-cart-message" id="empty-cart-message">
+                <p>Your cart is empty</p>
+                <p>Add some sparkle to your celebrations!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="checkout-header">
+            <h2>Checkout</h2>
+            <button class="close-checkout" id="close-checkout">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="checkout-content">
+            <div class="checkout-step">
+                <h3><i class="fas fa-user"></i> Personal Details</h3>
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                </div>
+            </div>
+            
+            <div class="checkout-step">
+                <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" placeholder="Enter your address" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" placeholder="Enter your city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" placeholder="Enter pincode" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" required>
+                        <option value="">Select State</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Telangana">Telangana</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="checkout-step">
+                <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                <div class="payment-methods">
+                    <div class="payment-method" data-method="card">
+                        <i class="fas fa-credit-card"></i>
+                        <p>Credit/Debit Card</p>
+                    </div>
+                    <div class="payment-method" data-method="upi">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>UPI</p>
+                    </div>
+                    <div class="payment-method" data-method="cod">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <p>Cash on Delivery</p>
+                    </div>
+                </div>
+                
+                <div id="card-details" class="payment-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" placeholder="Enter name as on card">
+                    </div>
+                </div>
+                
+                <div id="upi-details" class="payment-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="upi-id">UPI ID</label>
+                        <input type="text" id="upi-id" placeholder="yourname@upi">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checkout-step">
+                <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+                <div class="order-summary" id="checkout-summary">
+                    <!-- Order summary will be dynamically added here -->
+                </div>
+            </div>
+            
+            <button class="place-order-btn" id="place-order-btn">Place Order</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="success-modal">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for shopping with SparkleCrackers. Your order will be delivered within 2-3 business days.</p>
+        <p>Order ID: <strong>SPC-<span id="order-id">12345</span></strong></p>
+        <button class="continue-shopping" id="continue-shopping">Continue Shopping</button>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // Cart functionality
+        const cartIcon = document.getElementById('cart-icon');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCart = document.getElementById('close-cart');
+        const overlay = document.getElementById('overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartFooter = document.getElementById('cart-footer');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        // Checkout modal elements
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckout = document.getElementById('close-checkout');
+        const placeOrderBtn = document.getElementById('place-order-btn');
+        const checkoutSummary = document.getElementById('checkout-summary');
+        
+        // Success modal elements
+        const successModal = document.getElementById('success-modal');
+        const continueShoppingBtn = document.getElementById('continue-shopping');
+        const orderIdElement = document.getElementById('order-id');
+        
+        // Payment method elements
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const cardDetails = document.getElementById('card-details');
+        const upiDetails = document.getElementById('upi-details');
+        
+        // Category elements
+        const categoryCards = document.querySelectorAll('.category-card');
+        const productCards = document.querySelectorAll('.product-card');
+        
+        // Offers elements
+        const exploreOffersBtn = document.getElementById('explore-offers-btn');
+        const offersSection = document.getElementById('offers-section');
+        const offerButtons = document.querySelectorAll('.offer-btn');
+        
+        // Account elements
+        const accountBtn = document.getElementById('account-btn');
+        const accountModal = document.getElementById('account-modal');
+        const closeAccount = document.getElementById('close-account');
+        const accountTabs = document.querySelectorAll('.account-tab');
+        const accountForms = document.querySelectorAll('.account-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        
+        // Favorites elements
+        const favoritesBtn = document.getElementById('favorites-btn');
+        const favoritesSidebar = document.getElementById('favorites-sidebar');
+        const closeFavorites = document.getElementById('close-favorites');
+        const favoritesItemsContainer = document.getElementById('favorites-items');
+        const emptyFavoritesMessage = document.getElementById('empty-favorites-message');
+        const favoriteButtons = document.querySelectorAll('.favorite-btn');
+        
+        // Initialize cart
+        let cart = [];
+        let cartCount = 0;
+        
+        // Initialize favorites
+        let favorites = [];
+        let favoritesCount = 0;
+        
+        // Open cart
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        // Close cart
+        closeCart.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Open favorites
+        favoritesBtn.addEventListener('click', () => {
+            favoritesSidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        // Close favorites
+        closeFavorites.addEventListener('click', () => {
+            favoritesSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Open account modal
+        accountBtn.addEventListener('click', () => {
+            accountModal.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        // Close account modal
+        closeAccount.addEventListener('click', () => {
+            accountModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Close all with overlay
+        overlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            favoritesSidebar.classList.remove('active');
+            accountModal.classList.remove('active');
+            checkoutModal.classList.remove('active');
+            successModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Account tabs functionality
+        accountTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs
+                accountTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all forms
+                accountForms.forEach(form => form.classList.remove('active'));
+                // Show corresponding form
+                document.getElementById(`${tabId}-form`).classList.add('active');
+            });
+        });
+        
+        // Show register form
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            accountTabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="register"]').classList.add('active');
+            
+            accountForms.forEach(form => form.classList.remove('active'));
+            document.getElementById('register-form').classList.add('active');
+        });
+        
+        // Show login form
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            accountTabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="login"]').classList.add('active');
+            
+            accountForms.forEach(form => form.classList.remove('active'));
+            document.getElementById('login-form').classList.add('active');
+        });
+        
+        // Add to cart buttons
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseInt(button.getAttribute('data-price'));
+                const image = button.getAttribute('data-image');
+                
+                addToCart(id, name, price, image);
+                
+                // Show a quick confirmation
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-plus"></i>';
+                }, 1000);
+            });
+        });
+        
+        // Add offer items to cart
+        offerButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseInt(button.getAttribute('data-price'));
+                const image = button.getAttribute('data-image');
+                
+                addToCart(id, name, price, image);
+                
+                // Show a quick confirmation
+                const originalText = button.textContent;
+                button.textContent = 'Added!';
+                button.style.background = 'var(--success)';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'var(--primary)';
+                }, 1000);
+            });
+        });
+        
+        // Favorite buttons functionality
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const productCard = button.closest('.product-card');
+                const name = productCard.querySelector('.product-name').textContent;
+                const price = parseInt(productCard.querySelector('.product-price').textContent.replace('₹', ''));
+                const image = productCard.querySelector('img').src;
+                
+                toggleFavorite(id, name, price, image, button);
+            });
+        });
+        
+        // Add item to cart
+        function addToCart(id, name, price, image) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            cartCount++;
+            updateCartUI();
+        }
+        
+        // Toggle favorite item
+        function toggleFavorite(id, name, price, image, button) {
+            const existingItem = favorites.find(item => item.id === id);
+            
+            if (existingItem) {
+                // Remove from favorites
+                const itemIndex = favorites.findIndex(item => item.id === id);
+                favorites.splice(itemIndex, 1);
+                favoritesCount--;
+                button.innerHTML = '<i class="far fa-heart"></i>';
+                button.classList.remove('active');
+            } else {
+                // Add to favorites
+                favorites.push({
+                    id,
+                    name,
+                    price,
+                    image
+                });
+                favoritesCount++;
+                button.innerHTML = '<i class="fas fa-heart"></i>';
+                button.classList.add('active');
+            }
+            
+            updateFavoritesUI();
+        }
+        
+        // Update cart UI
+        function updateCartUI() {
+            const cartCountElement = document.querySelector('.cart-count');
+            cartCountElement.textContent = cartCount;
+            
+            // Clear cart items
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.appendChild(emptyCartMessage);
+                cartFooter.style.display = 'none';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cartFooter.style.display = 'block';
+                
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price}</div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn minus" data-id="${item.id}">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn plus" data-id="${item.id}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="remove-item" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    cartItemsContainer.appendChild(cartItem);
+                    total += item.price * item.quantity;
+                });
+                
+                cartTotal.textContent = `₹${total}`;
+                
+                // Add event listeners to quantity buttons
+                const minusButtons = document.querySelectorAll('.quantity-btn.minus');
+                const plusButtons = document.querySelectorAll('.quantity-btn.plus');
+                const removeButtons = document.querySelectorAll('.remove-item');
+                
+                minusButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        updateQuantity(id, -1);
+                    });
+                });
+                
+                plusButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        updateQuantity(id, 1);
+                    });
+                });
+                
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        removeFromCart(id);
+                    });
+                });
+            }
+        }
+        
+        // Update favorites UI
+        function updateFavoritesUI() {
+            const favoritesCountElement = document.querySelector('.favorites-count');
+            favoritesCountElement.textContent = favoritesCount;
+            
+            // Clear favorites items
+            favoritesItemsContainer.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                favoritesItemsContainer.appendChild(emptyFavoritesMessage);
+            } else {
+                emptyFavoritesMessage.style.display = 'none';
+                
+                favorites.forEach(item => {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.innerHTML = `
+                        <div class="favorite-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="favorite-item-details">
+                            <div class="favorite-item-name">${item.name}</div>
+                            <div class="favorite-item-price">₹${item.price}</div>
+                            <div class="favorite-item-controls">
+                                <button class="offer-btn add-to-cart-from-fav" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}">Add to Cart</button>
+                                <button class="remove-favorite" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    favoritesItemsContainer.appendChild(favoriteItem);
+                });
+                
+                // Add event listeners to remove favorite buttons
+                const removeFavoriteButtons = document.querySelectorAll('.remove-favorite');
+                removeFavoriteButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        removeFromFavorites(id);
+                    });
+                });
+                
+                // Add event listeners to add to cart from favorites buttons
+                const addToCartFromFavButtons = document.querySelectorAll('.add-to-cart-from-fav');
+                addToCartFromFavButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        const name = button.getAttribute('data-name');
+                        const price = parseInt(button.getAttribute('data-price'));
+                        const image = button.getAttribute('data-image');
+                        
+                        addToCart(id, name, price, image);
+                        
+                        // Show a quick confirmation
+                        const originalText = button.textContent;
+                        button.textContent = 'Added!';
+                        button.style.background = 'var(--success)';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                            button.style.background = 'var(--primary)';
+                        }, 1000);
+                    });
+                });
+            }
+        }
+        
+        // Update item quantity
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    cartCount += change;
+                    updateCartUI();
+                }
+            }
+        }
+        
+        // Remove item from cart
+        function removeFromCart(id) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            
+            if (itemIndex !== -1) {
+                cartCount -= cart[itemIndex].quantity;
+                cart.splice(itemIndex, 1);
+                updateCartUI();
+            }
+        }
+        
+        // Remove item from favorites
+        function removeFromFavorites(id) {
+            const itemIndex = favorites.findIndex(item => item.id === id);
+            
+            if (itemIndex !== -1) {
+                favoritesCount--;
+                favorites.splice(itemIndex, 1);
+                updateFavoritesUI();
+                
+                // Also update the favorite button in the product card
+                const favoriteButton = document.querySelector(`.favorite-btn[data-id="${id}"]`);
+                if (favoriteButton) {
+                    favoriteButton.innerHTML = '<i class="far fa-heart"></i>';
+                    favoriteButton.classList.remove('active');
+                }
+            }
+        }
+        
+        // Checkout button
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length > 0) {
+                cartSidebar.classList.remove('active');
+                checkoutModal.classList.add('active');
+                updateCheckoutSummary();
+            }
+        });
+        
+        // Close checkout modal
+        closeCheckout.addEventListener('click', () => {
+            checkoutModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Update checkout summary
+        function updateCheckoutSummary() {
+            checkoutSummary.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>₹${itemTotal}</span>
+                `;
+                
+                checkoutSummary.appendChild(orderItem);
+            });
+            
+            const deliveryFee = 50;
+            const total = subtotal + deliveryFee;
+            
+            const deliveryItem = document.createElement('div');
+            deliveryItem.className = 'order-item';
+            deliveryItem.innerHTML = `
+                <span>Delivery Fee</span>
+                <span>₹${deliveryFee}</span>
+            `;
+            
+            checkoutSummary.appendChild(deliveryItem);
+            
+            const totalElement = document.createElement('div');
+            totalElement.className = 'order-total';
+            totalElement.innerHTML = `
+                <span>Total</span>
+                <span>₹${total}</span>
+            `;
+            
+            checkoutSummary.appendChild(totalElement);
+        }
+        
+        // Payment method selection
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                // Remove active class from all methods
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                
+                // Add active class to selected method
+                method.classList.add('active');
+                
+                // Show corresponding payment details
+                const paymentType = method.getAttribute('data-method');
+                
+                cardDetails.style.display = 'none';
+                upiDetails.style.display = 'none';
+                
+                if (paymentType === 'card') {
+                    cardDetails.style.display = 'block';
+                } else if (paymentType === 'upi') {
+                    upiDetails.style.display = 'block';
+                }
+            });
+        });
+        
+        // Place order
+        placeOrderBtn.addEventListener('click', () => {
+            // Validate form
+            const fullName = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const pincode = document.getElementById('pincode').value;
+            const state = document.getElementById('state').value;
+            
+            if (!fullName || !email || !phone || !address || !city || !pincode || !state) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Generate random order ID
+            const orderId = Math.floor(10000 + Math.random() * 90000);
+            orderIdElement.textContent = orderId;
+            
+            // Show success modal
+            checkoutModal.classList.remove('active');
+            successModal.classList.add('active');
+            
+            // Clear cart
+            cart = [];
+            cartCount = 0;
+            updateCartUI();
+        });
+        
+        // Continue shopping
+        continueShoppingBtn.addEventListener('click', () => {
+            successModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Category filtering
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove active class from all category cards
+                categoryCards.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked category
+                card.classList.add('active');
+                
+                const category = card.getAttribute('data-category');
+                
+                productCards.forEach(product => {
+                    if (category === 'all' || product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Explore Offers button functionality
+        exploreOffersBtn.addEventListener('click', () => {
+            // Scroll to offers section
+            offersSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Show offers section if hidden
+            offersSection.classList.add('active');
+            
+            // Highlight the offers section
+            offersSection.style.animation = 'pulse 2s';
+            setTimeout(() => {
+                offersSection.style.animation = '';
+            }, 2000);
+        });
+        
+        // Initialize UI
+        updateCartUI();
+        updateFavoritesUI();
+        
+        // Add CSS animation for pulse effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(255, 62, 127, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(255, 62, 127, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 62, 127, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
